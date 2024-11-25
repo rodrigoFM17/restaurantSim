@@ -7,6 +7,13 @@ public class Table implements Position {
     private boolean busy;
     private Commensal commensal;
 
+    public Table(double x, double y) {
+        this.x = x;
+        this.y = y;
+        this.busy = false;
+        this.commensal = null;
+    }
+
     @Override
     public double getY() {
         return y;

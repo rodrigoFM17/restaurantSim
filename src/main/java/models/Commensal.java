@@ -15,9 +15,9 @@ public class Commensal extends Thread implements Position, Observable {
     private STATUS status;
     private Table table;
 
-    public Commensal() {
-        this.x = 100;
-        this.y = 100;
+    public Commensal(double x, double y) {
+        this.x = x;
+        this.y = y;
         this.status = STATUS.NEW;
         this.table = null;
         this.observers = new ArrayList<>();
