@@ -47,7 +47,7 @@ public class Commensal extends Thread implements Position, Observable {
 
     @Override
     public void run() {
-        while(true){
+
             this.x += 0;
             this.y += -5;
             System.out.println(x);
@@ -55,8 +55,11 @@ public class Commensal extends Thread implements Position, Observable {
             notifyObservers();
             try {
                 try {
+                    System.out.println("Pidiendo mesa");
                     this.table = this.r.attendCommensal(this);
                     this.status = STATUS.WFOOD;
+                    System.out.println("Tengo mesa y por eso espero mi comida");
+
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -69,10 +72,13 @@ public class Commensal extends Thread implements Position, Observable {
                 Thread.sleep(10000);
 
                 r.dismissCommensal(this.table);
+
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        }
+
+
+
     }
 
     @Override

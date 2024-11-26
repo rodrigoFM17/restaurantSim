@@ -22,9 +22,7 @@ public class MonitorTables {
         }
 
         int i = 0;
-        System.out.println(this.tables[i].getBusy());
         while(this.tables[i].getBusy()){
-            System.out.println(i);
             i++;
         }
         this.tables[i].setBusy(true);
@@ -38,7 +36,6 @@ public class MonitorTables {
         this.tables[table.getNumber()].setBusy(false);
         this.tables[table.getNumber()].setAttend(false);
         this.countTables++;
-        this.countClient--;
 
         System.out.println(this.tables[table.getNumber()]);
     }
@@ -46,26 +43,26 @@ public class MonitorTables {
     synchronized public Table attendTable() throws Exception {
         if(countClient > 0){
             int i = 0;
-            while(this.tables[i].getBusy() && this.tables[i].getAttend()){
+            while(this.tables[i].getAttend()){
                 i++;
             }
             this.tables[i].setAttend(true);
 
-            System.out.println(this.tables[i]);
+            this.countClient--;
 
             return this.tables[i];
         }
         return null;
     }
 
-    public Table findTable(int tableId){
+    public void findTable(int tableId){
         int i = 0;
 
         while(this.tables[i].getNumber() != tableId){
             i++;
         }
 
-        return this.tables[i];
+        this.tables[i].setStatusCommensal(Commensal.STATUS.SERVE);
     }
 
 }

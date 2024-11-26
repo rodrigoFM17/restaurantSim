@@ -39,8 +39,8 @@ public class Waiter extends Thread {
                 System.out.println("Entregar comida");
                 // Movimiento a la mesa para entregar comida notifySuscribers();
 
-                Table table = this.monitorTables.findTable(order.getTableId());
-                table.setStatusCommensal(Commensal.STATUS.SERVE);
+                this.monitorTables.findTable(order.getTableId());
+
             }
 
         }

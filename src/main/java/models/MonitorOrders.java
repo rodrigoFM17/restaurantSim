@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Arrays;
+
 public class MonitorOrders {
     int countOrder = 0;
     int countFood = 0;
@@ -16,6 +18,7 @@ public class MonitorOrders {
         }
 
         this.orders[i] = order;
+        System.out.println(Arrays.toString(this.orders));
         countOrder++;
         notifyAll();
     }
@@ -30,13 +33,13 @@ public class MonitorOrders {
         }
 
         int i = 0;
-        while(this.orders[i].getTaken()){
+        while(this.orders[i] == null || this.orders[i].getTaken()){
             i++;
         }
 
         countOrder--;
         this.orders[i].setTaken(true);
-        return this.orders[i].getTableId();
+        return i;
     }
 
     synchronized public void setFood(int tableId){
@@ -48,12 +51,13 @@ public class MonitorOrders {
     synchronized public Order getFood(){
         if(countFood > 0) {
             int i = 0;
-            while(!this.orders[i].getFinished()){
+            while(this.orders[i] == null || !this.orders[i].getFinished()){
                 i++;
             }
 
             Order food = this.orders[i];
             this.orders[i] = null;
+            this.countFood--;
 
             return food;
         }
