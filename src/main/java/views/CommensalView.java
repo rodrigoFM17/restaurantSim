@@ -9,7 +9,7 @@ import models.Observer;
 
 public class CommensalView implements Observer {
 
-    private Entity commensal;
+    private final Entity commensalView;
     private enum EntityType {
         COMMENSAL
     }
@@ -19,7 +19,7 @@ public class CommensalView implements Observer {
         commensalTexture.setFitWidth(50);
         commensalTexture.setFitHeight(50);
 
-        this.commensal = FXGL.entityBuilder()
+        this.commensalView = FXGL.entityBuilder()
                 .type(EntityType.COMMENSAL)
                 .at(commensalModel.getX(), commensalModel.getY())
                 .viewWithBBox(commensalTexture)
@@ -30,6 +30,6 @@ public class CommensalView implements Observer {
     @Override
     public void update(double x, double y) {
         System.out.println("mne muevo negros");
-        commensal.setPosition(x, y);
+        commensalView.setPosition(x, y);
     }
 }
