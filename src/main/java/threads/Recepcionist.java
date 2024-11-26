@@ -1,7 +1,10 @@
-package models;
+package threads;
+
+import models.MonitorTables;
+import models.Table;
 
 public class Recepcionist {
-    MonitorTables monitorTables;
+    private MonitorTables monitorTables;
 
     public Recepcionist(MonitorTables monitorTables){
         this.monitorTables = monitorTables;

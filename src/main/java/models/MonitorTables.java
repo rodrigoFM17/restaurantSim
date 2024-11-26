@@ -20,10 +20,12 @@ public class MonitorTables {
         }
 
         int i = 0;
+        System.out.println(this.tables[i].busy);
         while(this.tables[i].busy){
+            System.out.println(i);
             i++;
         }
-        this.tables[i].busy = false;
+        this.tables[i].busy = true;
         this.countTables--;
         this.countClient++;
         return this.tables[i];
@@ -34,6 +36,8 @@ public class MonitorTables {
         this.tables[table.number].attend = false;
         this.countTables++;
         this.countClient--;
+
+        System.out.println(this.tables[table.number]);
     }
 
     synchronized public Table attendTable() throws Exception {
@@ -50,6 +54,9 @@ public class MonitorTables {
             i++;
         }
         this.tables[i].attend = true;
+
+        System.out.println(this.tables[i]);
+
         return this.tables[i];
     }
 }

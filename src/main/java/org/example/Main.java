@@ -4,17 +4,13 @@ import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
-import com.almasb.fxgl.entity.components.CollidableComponent;
-import com.almasb.fxgl.input.Input;
-import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.physics.CollisionHandler;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import models.Commensal;
-import views.CommensalView;
+import threads.Commensal;
+import models.MonitorTables;
+import threads.Recepcionist;
+import models.Table;
 
 import java.util.Map;
 
@@ -36,19 +32,20 @@ public class Main extends GameApplication {
 
     @Override
     protected void initGame() {
-        // Crear un cuadrado y posicionarlo
-        Commensal c =  new Commensal();
-        CommensalView commenView = new CommensalView(c);
-        c.addObserver(commenView);
-        c.start();
+        Table[] tables = new Table[15];
+        for(int i = 0; i < 15; i++){
+            tables[i] = new Table(i);
+        }
 
 
-        FXGL.entityBuilder()
-                .type(EntityType.COIN)
-                .at(500, 200)
-                .viewWithBBox(new Circle(15, 15, 15, Color.YELLOW))
-                .with(new CollidableComponent(true))
-                .buildAndAttach();
+        MonitorTables mTables = new MonitorTables(tables, 15);
+
+        Recepcionist recepcionist = new Recepcionist(mTables);
+
+        for(int i = 0; i < 5; i++){
+            Thread c = new Commensal(recepcionist);
+            c.start();
+        }
     }
 
     @Override

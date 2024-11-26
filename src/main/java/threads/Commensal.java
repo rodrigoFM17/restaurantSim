@@ -1,4 +1,9 @@
-package models;
+package threads;
+
+import models.Observable;
+import models.Observer;
+import models.Position;
+import models.Table;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +19,15 @@ public class Commensal extends Thread implements Position, Observable {
     private double y;
     private STATUS status;
     private Table table;
+    private Recepcionist r;
 
-    public Commensal() {
+    public Commensal(Recepcionist r) {
         this.x = 100;
         this.y = 100;
         this.status = STATUS.NEW;
         this.table = null;
         this.observers = new ArrayList<>();
+        this.r = r;
     }
 
     @Override
@@ -40,18 +47,25 @@ public class Commensal extends Thread implements Position, Observable {
 
     @Override
     public void run() {
-        while(true){
-            this.x += 1;
-            this.y += 1;
-            System.out.println(x);
-            System.out.println(y);
-            notifyObservers();
+
             try {
-                Thread.sleep(100);
+                this.table = r.attendCommensal();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+            try {
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        }
+
+            r.dismissCommensal(this.table);
+
+
+
+
+
     }
 
     @Override
