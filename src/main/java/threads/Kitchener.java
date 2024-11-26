@@ -1,8 +1,12 @@
-package models;
+package threads;
+
+import models.Observable;
+import models.Observer;
+import models.Position;
 
 import java.util.List;
 
-public class Kitchener extends Thread implements Position, Observable{
+public class Kitchener extends Thread implements Position, Observable {
 
     private double x;
     private double y;

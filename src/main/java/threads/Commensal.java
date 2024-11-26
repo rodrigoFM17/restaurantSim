@@ -10,8 +10,8 @@ import models.Table;
 
 public class Commensal extends Thread implements Position, Observable {
 
-    private enum STATUS {
-        NEW, WTABLE, WWAITRESS
+    public enum STATUS {
+        NEW, WFOOD, SERVE
     }
 
     private List<Observer> observers;
@@ -19,13 +19,15 @@ public class Commensal extends Thread implements Position, Observable {
     private double y;
     private STATUS status;
     private Table table;
+    private Recepcionist r;
 
-    public Commensal(double x, double y) {
+    public Commensal(double x, double y, Recepcionist r) {
         this.x = x;
         this.y = y;
         this.status = STATUS.NEW;
         this.table = null;
         this.observers = new ArrayList<>();
+        this.r = r;
     }
 
     @Override
@@ -52,7 +54,21 @@ public class Commensal extends Thread implements Position, Observable {
             System.out.println(y);
             notifyObservers();
             try {
-                Thread.sleep(100);
+                try {
+                    this.table = this.r.attendCommensal(this);
+                    this.status = STATUS.WFOOD;
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
+                while(this.status == STATUS.WFOOD){
+                    Thread.sleep(9000);
+                }
+
+                System.out.println("Comiendo...");
+                Thread.sleep(10000);
+
+                r.dismissCommensal(this.table);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -67,5 +83,9 @@ public class Commensal extends Thread implements Position, Observable {
     @Override
     public double getY() {
         return this.y;
+    }
+
+    public void setStatus(STATUS s){
+        this.status = s;
     }
 }

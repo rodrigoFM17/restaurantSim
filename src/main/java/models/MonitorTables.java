@@ -1,5 +1,7 @@
 package models;
 
+import threads.Commensal;
+
 public class MonitorTables {
     Table[] tables;
     int countTables;
@@ -10,7 +12,7 @@ public class MonitorTables {
         this.countTables = countTables;
     }
 
-    synchronized public Table getTable() throws Exception {
+    synchronized public Table getTable(Commensal c) throws Exception {
         while(this.countTables == 0){
             try{
                 wait();
@@ -26,6 +28,7 @@ public class MonitorTables {
             i++;
         }
         this.tables[i].setBusy(true);
+        this.tables[i].setCommensal(c);
         this.countTables--;
         this.countClient++;
         return this.tables[i];
@@ -41,22 +44,28 @@ public class MonitorTables {
     }
 
     synchronized public Table attendTable() throws Exception {
-        while(this.countClient == 0){
-            try{
-                wait();
-            }catch (InterruptedException e){
-                throw new Exception(e);
+        if(countClient > 0){
+            int i = 0;
+            while(this.tables[i].getBusy() && this.tables[i].getAttend()){
+                i++;
             }
-        }
+            this.tables[i].setAttend(true);
 
+            System.out.println(this.tables[i]);
+
+            return this.tables[i];
+        }
+        return null;
+    }
+
+    public Table findTable(int tableId){
         int i = 0;
-        while(this.tables[i].getBusy() && this.tables[i].getAttend()){
+
+        while(this.tables[i].getNumber() != tableId){
             i++;
         }
-        this.tables[i].setAttend(true);
-
-        System.out.println(this.tables[i]);
 
         return this.tables[i];
     }
+
 }
