@@ -16,7 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import models.Commensal;
+import threads.Commensal;
 import models.Simulation;
 import models.Table;
 import views.CommensalView;

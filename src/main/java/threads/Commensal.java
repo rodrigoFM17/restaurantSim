@@ -1,7 +1,12 @@
-package models;
+package threads;
 
 import java.util.ArrayList;
 import java.util.List;
+import models.Position;
+import models.Observable;
+import models.Observer;
+import models.Table;
+
 
 public class Commensal extends Thread implements Position, Observable {
 

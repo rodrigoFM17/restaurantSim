@@ -4,6 +4,7 @@ import com.almasb.fxgl.dsl.FXGL;
 import javafx.application.Platform;
 import views.CommensalView;
 import views.TableView;
+import threads.Commensal;
 
 public class Simulation extends Thread {
 
@@ -26,14 +27,16 @@ public class Simulation extends Thread {
         int stepWSize = (int) (FXGL.getAppWidth() * .5) / (cols + 1) ;
         int stepHSize = FXGL.getAppHeight() / (rows + 1);
 
+        int n_table = 0;
         for ( int i = 1; i <= cols; i++) {
             for (int j= 1; j <= rows; j++){
                 int finalJ = j;
                 int finalI = i;
+                Table table = new Table(finalI * stepWSize, finalJ * stepHSize, n_table);
                 Platform.runLater(() -> {
-                    Table table = new Table(finalI * stepWSize, finalJ * stepHSize);
                     TableView tableView = new TableView(table);
                 });
+                n_table++;
             }
         }
 
