@@ -2,8 +2,11 @@ package models;
 
 import com.almasb.fxgl.dsl.FXGL;
 import controllers.CommensalController;
+import controllers.RecepcionistController;
 import javafx.application.Platform;
+import threads.Recepcionist;
 import views.CommensalView;
+import views.RecepcionistView;
 import views.TableView;
 import threads.Commensal;
 
@@ -53,6 +56,9 @@ public class Simulation extends Thread {
 
             CommensalController commensalController = new CommensalController();
             commensalController.exec();
+
+            RecepcionistController recepcionistController = new RecepcionistController();
+            recepcionistController.exec(monitorTable);
 
             try {
                 Thread.sleep(5000);
