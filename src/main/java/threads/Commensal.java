@@ -48,8 +48,8 @@ public class Commensal extends Thread implements Position, Observable {
     @Override
     public void run() {
         while(true){
-            this.x += 1;
-            this.y += 1;
+            this.x += 0;
+            this.y += -5;
             System.out.println(x);
             System.out.println(y);
             notifyObservers();
