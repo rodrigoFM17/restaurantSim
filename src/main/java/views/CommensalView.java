@@ -4,10 +4,8 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.texture.Texture;
 import threads.Commensal;
-import models.Observer;
 
-
-public class CommensalView implements Observer {
+public class CommensalView {
 
     private final Entity commensalView;
     private enum EntityType {
@@ -27,9 +25,8 @@ public class CommensalView implements Observer {
 
     }
 
-    @Override
-    public void update(double x, double y) {
-        System.out.println("mne muevo negros");
+    public void move(double x, double y) {
+        System.out.println("me muevo");
         commensalView.setPosition(x, y);
     }
 }

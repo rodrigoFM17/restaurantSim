@@ -1,8 +1,13 @@
-package models;
+package threads;
 
+import models.Observable;
+import models.Observer;
+import models.Position;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class Kitchener extends Thread implements Position, Observable{
+public class Kitchener extends Thread implements Position, Observable {
 
     private double x;
     private double y;
@@ -11,6 +16,7 @@ public class Kitchener extends Thread implements Position, Observable{
     public Kitchener(double x, double y){
         this.x = x;
         this.y = y;
+        this.observers = new ArrayList<>();
     }
 
     @Override
