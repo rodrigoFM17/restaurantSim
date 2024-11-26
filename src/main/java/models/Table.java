@@ -2,6 +2,8 @@ package models;
 
 import threads.Commensal;
 
+import java.awt.color.CMMException;
+
 public class Table implements Position {
 
     private int number;
@@ -47,5 +49,13 @@ public class Table implements Position {
 
     public int getNumber(){
         return this.number;
+    }
+
+    public void setCommensal(Commensal commensal) {
+        this.commensal = commensal;
+    }
+
+    public void setStatusCommensal(Commensal.STATUS s){
+        this.commensal.setStatus(s);
     }
 }
