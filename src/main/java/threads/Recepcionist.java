@@ -10,8 +10,8 @@ public class Recepcionist {
         this.monitorTables = monitorTables;
     }
 
-    public Table attendCommensal() throws Exception {
-        return this.monitorTables.getTable();
+    public Table attendCommensal(Commensal c) throws Exception {
+        return this.monitorTables.getTable(c);
     }
 
     public void dismissCommensal(Table table) {
