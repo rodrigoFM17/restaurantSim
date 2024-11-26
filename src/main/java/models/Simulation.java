@@ -54,11 +54,12 @@ public class Simulation extends Thread {
 
         while (true){
 
-            CommensalController commensalController = new CommensalController();
-            commensalController.exec();
-
             RecepcionistController recepcionistController = new RecepcionistController();
             recepcionistController.exec(monitorTable);
+
+            CommensalController commensalController = new CommensalController();
+            commensalController.exec(recepcionistController.getRecepcionist());
+
 
             try {
                 Thread.sleep(5000);

@@ -17,4 +17,8 @@ public class RecepcionistController {
         });
         recepcionist.start();
     }
+
+    public Recepcionist getRecepcionist() {
+        return recepcionist;
+    }
 }
