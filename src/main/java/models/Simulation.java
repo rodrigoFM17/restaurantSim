@@ -57,30 +57,44 @@ public class Simulation extends Thread {
         Order[] orders = new Order[20];
         MonitorOrders monitorOrders = new MonitorOrders(orders);
 
+        RecepcionistController recepcionistController = new RecepcionistController();
+        recepcionistController.exec(monitorTable);
 
-
-            RecepcionistController recepcionistController = new RecepcionistController();
-            recepcionistController.exec(monitorTable);
-
-            for (int i = 0; i < 2; i++) {
-                Waiter w = new Waiter(monitorTable, monitorOrders);
-                w.start();
-            }
-
-            for (int i = 0; i < 3; i++) {
-                Kitchener k = new Kitchener(10, 10, monitorOrders);
-                k.start();
-            }
-
-            for (int i = 0; i < 25; i++){
+        while (true){
+            System.out.println("nuevo comensal");
+            Platform.runLater(()->{
                 CommensalController commensalController = new CommensalController();
                 commensalController.exec(recepcionistController.getRecepcionist());
-//                try{
-//                    Thread.sleep(Math.round(Math.random() * 7000));
-//                } catch (Exception e) {
-//                    throw new RuntimeException(e);
-//                }
+            });
+
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
+        }
+
+
+
+//            for (int i = 0; i < 2; i++) {
+//                Waiter w = new Waiter(monitorTable, monitorOrders);
+//                w.start();
+//            }
+//
+//            for (int i = 0; i < 3; i++) {
+//                Kitchener k = new Kitchener(10, 10, monitorOrders);
+//                k.start();
+//            }
+
+//            for (int i = 0; i < 25; i++){
+//                CommensalController commensalController = new CommensalController();
+//                commensalController.exec(recepcionistController.getRecepcionist());
+////                try{
+////                    Thread.sleep(Math.round(Math.random() * 7000));
+////                } catch (Exception e) {
+////                    throw new RuntimeException(e);
+////                }
+//            }
 
 
 
