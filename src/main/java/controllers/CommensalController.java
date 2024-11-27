@@ -15,7 +15,8 @@ public class CommensalController implements Observer {
         commensal =  new Commensal(1200, 630, recepcionist);
         commensalView = new CommensalView(commensal);
         commensal.addObserver(this);
-        commensal.start();
+        Thread commensalThread = new Thread(commensal);
+        commensalThread.start();
     }
 
     @Override

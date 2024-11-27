@@ -15,7 +15,8 @@ public class RecepcionistController {
         Platform.runLater(() -> {
             recepcionistView = new RecepcionistView(recepcionist);
         });
-        recepcionist.start();
+        Thread recepcionistThread = new Thread(recepcionist);
+        recepcionistThread.start();
     }
 
     public Recepcionist getRecepcionist() {

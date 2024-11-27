@@ -2,25 +2,17 @@ package threads;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import models.Position;
-import models.Observable;
 import models.Observer;
 import models.Table;
 
 
-public class Commensal extends Thread implements Position, Observable {
+public class Commensal extends Position implements Runnable{
 
     public enum STATUS {
         NEW, WFOOD, SERVE
     }
 
-    private List<Observer> observers;
-    private double x;
-    private double y;
     private STATUS status;
     private Table table;
     private Recepcionist r;
@@ -34,58 +26,58 @@ public class Commensal extends Thread implements Position, Observable {
         this.r = r;
     }
 
-    @Override
-    public void notifyObservers() {
-        observers.forEach(observer -> observer.update(x, y));
-    }
-
-    @Override
-    public void addObserver(Observer observer) {
-        observers.add(observer);
-    }
-
-    @Override
-    public void removeObserver(Observer observer) {
-        observers.remove(observer);
-    }
-
-    private void sleepThread() throws InterruptedException {
-        Thread.sleep(10);
-    }
-
-    private void moveX(double x) throws InterruptedException {
-        while (this.x != x){
-            if (this.x > x){
-                this.x -= 2;
-            } else {
-                this.x += 2;
-            }
-                notifyObservers();
-                sleepThread();
-        }
-    }
-
-    private void moveY(double y) throws InterruptedException {
-        while (this.y != y){
-            if (this.y > y){
-                this.y -= 2;
-            } else {
-                this.y += 2;
-            }
-            notifyObservers();
-            sleepThread();
-        }
-    }
-
-    private void moveTo(double x, double y, boolean xFirst) throws InterruptedException {
-        if(xFirst){
-            moveX(x);
-            moveY(y);
-        } else {
-            moveY(y);
-            moveX(x);
-        }
-    }
+//    @Override
+//    public void notifyObservers() {
+//        observers.forEach(observer -> observer.update(x, y));
+//    }
+//
+//    @Override
+//    public void addObserver(Observer observer) {
+//        observers.add(observer);
+//    }
+//
+//    @Override
+//    public void removeObserver(Observer observer) {
+//        observers.remove(observer);
+//    }
+//
+//    private void sleepThread() throws InterruptedException {
+//        Thread.sleep(10);
+//    }
+//
+//    private void moveX(double x) throws InterruptedException {
+//        while (this.x != x){
+//            if (this.x > x){
+//                this.x -= 2;
+//            } else {
+//                this.x += 2;
+//            }
+//                notifyObservers();
+//                sleepThread();
+//        }
+//    }
+//
+//    private void moveY(double y) throws InterruptedException {
+//        while (this.y != y){
+//            if (this.y > y){
+//                this.y -= 2;
+//            } else {
+//                this.y += 2;
+//            }
+//            notifyObservers();
+//            sleepThread();
+//        }
+//    }
+//
+//    private void moveTo(double x, double y, boolean xFirst) throws InterruptedException {
+//        if(xFirst){
+//            moveX(x);
+//            moveY(y);
+//        } else {
+//            moveY(y);
+//            moveX(x);
+//        }
+//    }
 
     @Override
     public void run() {
@@ -124,16 +116,6 @@ public class Commensal extends Thread implements Position, Observable {
 
 
 
-    }
-
-    @Override
-    public double getX() {
-        return this.x;
-    }
-
-    @Override
-    public double getY() {
-        return this.y;
     }
 
     public void setStatus(STATUS s){

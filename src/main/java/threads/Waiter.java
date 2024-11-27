@@ -1,15 +1,16 @@
 package threads;
 
-import models.MonitorOrders;
-import models.MonitorTables;
-import models.Order;
-import models.Table;
+import models.*;
 
-public class Waiter extends Thread {
+import java.util.List;
+
+public class Waiter extends Position implements Runnable {
     MonitorTables monitorTables;
     MonitorOrders monitorOrders;
 
-    public Waiter(MonitorTables monitorTables, MonitorOrders monitorOrders){
+    public Waiter(double x, double y, MonitorTables monitorTables, MonitorOrders monitorOrders){
+        this.x = x;
+        this.y = y;
         this.monitorTables = monitorTables;
         this.monitorOrders = monitorOrders;
     }
@@ -46,7 +47,4 @@ public class Waiter extends Thread {
         }
 
     }
-
-
-
 }

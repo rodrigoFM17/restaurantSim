@@ -4,13 +4,11 @@ import threads.Commensal;
 
 import java.awt.color.CMMException;
 
-public class Table implements Position {
+public class Table extends Position {
 
     private int number;
     private boolean busy;
     private boolean attend;
-    private double x;
-    private double y;
     private Commensal commensal;
 
     public Table(double x, double y, int number) {
@@ -19,16 +17,6 @@ public class Table implements Position {
         this.busy = false;
         this.commensal = null;
         this.number = number;
-    }
-
-    @Override
-    public double getY() {
-        return y;
-    }
-
-    @Override
-    public double getX() {
-        return x;
     }
 
     public void setBusy(boolean busy){
