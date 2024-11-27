@@ -13,10 +13,8 @@ public class CommensalController implements Observer {
 
     public void exec (Recepcionist recepcionist) {
         commensal =  new Commensal(1200, 630, recepcionist);
-        Platform.runLater(() -> {
-            commensalView = new CommensalView(commensal);
-            commensal.addObserver(this);
-        });
+        commensalView = new CommensalView(commensal);
+        commensal.addObserver(this);
         commensal.start();
     }
 
