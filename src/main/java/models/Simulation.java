@@ -57,7 +57,8 @@ public class Simulation extends Thread {
     public void run() {
 
         Table[] tables = initTables();
-        MonitorTables monitorTable = new MonitorTables(tables, capacity);
+        Queue<Table> clients = new LinkedList<>();
+        MonitorTables monitorTable = new MonitorTables(tables, clients, capacity);
 
         Queue<Order> orders = new LinkedList<>();
         MonitorOrders monitorOrders = new MonitorOrders(orders);
