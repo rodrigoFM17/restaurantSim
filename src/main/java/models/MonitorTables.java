@@ -2,13 +2,17 @@ package models;
 
 import threads.Commensal;
 
+import java.util.Queue;
+
 public class MonitorTables {
     Table[] tables;
+    Queue<Table> clients;
     int countTables;
     int countClient = 0;
 
-    public MonitorTables(Table[] tables, int countTables){
+    public MonitorTables(Table[] tables, Queue<Table> clients, int countTables){
         this.tables = tables;
+        this.clients = clients;
         this.countTables = countTables;
     }
 
@@ -29,29 +33,33 @@ public class MonitorTables {
         this.tables[i].setCommensal(c);
         this.countTables--;
         this.countClient++;
+
+        this.clients.add(this.tables[i]);
+
         return this.tables[i];
     }
 
-    synchronized public void setTable(Table table){
-        this.tables[table.getNumber()].setBusy(false);
-        this.tables[table.getNumber()].setAttend(false);
+    synchronized public void setTable(Table tableLeaved){
+
+        for(Table table: tables){
+            if(table.getNumber() == tableLeaved.getNumber()){
+                table.setBusy(false);
+            }
+        }
+
         this.countTables++;
 
-        System.out.println(this.tables[table.getNumber()]);
         notifyAll();
     }
 
     synchronized public Table attendTable() throws Exception {
         if(countClient > 0){
-            int i = 0;
-            while(this.tables[i].getAttend()){
-                i++;
-            }
-            this.tables[i].setAttend(true);
+
+            Table table = clients.remove();
 
             this.countClient--;
 
-            return this.tables[i];
+            return table;
         }
         return null;
     }
