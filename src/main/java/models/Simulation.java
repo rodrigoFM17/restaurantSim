@@ -2,7 +2,9 @@ package models;
 
 import com.almasb.fxgl.dsl.FXGL;
 import controllers.CommensalController;
+import controllers.KitchenerController;
 import controllers.RecepcionistController;
+import controllers.WaiterController;
 import javafx.application.Platform;
 import threads.Kitchener;
 import threads.Recepcionist;
@@ -59,6 +61,16 @@ public class Simulation extends Thread {
 
         RecepcionistController recepcionistController = new RecepcionistController();
         recepcionistController.exec(monitorTable);
+
+        Platform.runLater(() ->{
+            WaiterController waiterController = new WaiterController();
+            waiterController.exec(monitorTable, monitorOrders);
+        });
+
+        Platform.runLater(() ->{
+            KitchenerController kitchenerController = new KitchenerController();
+            kitchenerController.exec(monitorOrders);
+        });
 
         while (true){
             System.out.println("nuevo comensal");

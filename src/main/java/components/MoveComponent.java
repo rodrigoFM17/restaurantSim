@@ -1,5 +1,6 @@
 package components;
 
+import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.component.Component;
 import javafx.application.Platform;
 
@@ -9,7 +10,12 @@ public class MoveComponent extends Component {
 
     public void move(double x, double y) {
         Platform.runLater(()->{
-            entity.setPosition(x, y);
+            if (x < FXGL.getAppWidth()){
+                entity.setPosition(x, y);
+            } else {
+                entity.removeFromWorld();
+                System.out.println("ya no estoy en la pantalla");
+            }
         });
     }
 

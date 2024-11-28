@@ -25,6 +25,15 @@ public class Kitchener extends Position implements Runnable {
             int orderId = this.monitorOrders.getOrder();
 
             System.out.println("Cocinando la orden " + orderId);
+            try {
+                moveTo(900, 400, false);
+                Thread.sleep(1000);
+                moveTo(1000, 400, false);
+                Thread.sleep(1000);
+                moveTo(800, 630, false);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
 
             try {
                 Thread.sleep(5000);

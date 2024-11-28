@@ -6,7 +6,6 @@ import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.texture.Texture;
 import components.MoveComponent;
 import javafx.application.Platform;
-import threads.Commensal;
 import threads.Waiter;
 
 public class WaiterView {
