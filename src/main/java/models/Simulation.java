@@ -14,6 +14,9 @@ import views.RecepcionistView;
 import views.TableView;
 import threads.Commensal;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Simulation extends Thread {
 
     private int capacity;
@@ -56,7 +59,7 @@ public class Simulation extends Thread {
         Table[] tables = initTables();
         MonitorTables monitorTable = new MonitorTables(tables, capacity);
 
-        Order[] orders = new Order[20];
+        Queue<Order> orders = new LinkedList<>();
         MonitorOrders monitorOrders = new MonitorOrders(orders);
 
         RecepcionistController recepcionistController = new RecepcionistController();

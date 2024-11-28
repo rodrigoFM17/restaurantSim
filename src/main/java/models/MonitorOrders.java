@@ -1,24 +1,23 @@
 package models;
 
 import java.util.Arrays;
+import java.util.Queue;
 
 public class MonitorOrders {
     int countOrder = 0;
     int countFood = 0;
-    Order[] orders;
+    Queue<Order> orders;
 
-    public MonitorOrders(Order[] orders){
+    public MonitorOrders(Queue<Order> orders){
         this.orders = orders;
     }
 
     synchronized public void setOrder(Order order) {
-        int i = 0;
-        while(this.orders[i] != null){
-            i++;
-        }
 
-        this.orders[i] = order;
-        System.out.println(Arrays.toString(this.orders));
+        this.orders.add(order);
+
+        System.out.println(this.orders);
+
         countOrder++;
         notifyAll();
     }
@@ -33,35 +32,48 @@ public class MonitorOrders {
         }
 
         int i = 0;
-        while(this.orders[i] == null || this.orders[i].getTaken()){
-            i++;
+        for (Order order : orders) {
+            if (!order.getTaken()) {
+                order.setTaken(true);
+                i = order.getTableId();
+                break;
+            }
         }
 
         countOrder--;
-        this.orders[i].setTaken(true);
+
         return i;
     }
 
     synchronized public void setFood(int tableId){
         countFood++;
-        this.orders[tableId].setFinished(true);
+
+        for (Order order : orders) {
+            if (order.getTableId() == tableId) {
+                order.setFinished(true);
+                break;
+            }
+        }
+
         notifyAll();
     }
 
     synchronized public Order getFood(){
+        Order food = null;
+
         if(countFood > 0) {
-            int i = 0;
-            while(this.orders[i] == null || !this.orders[i].getFinished()){
-                i++;
+
+            for (Order order : orders) {
+                if (order.getFinished()) {
+                    food = this.orders.remove();
+                    break;
+                }
             }
 
-            Order food = this.orders[i];
-            this.orders[i] = null;
-            this.countFood--;
 
-            return food;
+            this.countFood--;
         }
 
-        return null;
+        return food;
     }
 }
