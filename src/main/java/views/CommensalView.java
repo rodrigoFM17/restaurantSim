@@ -12,9 +12,6 @@ import threads.Commensal;
 public class CommensalView{
 
     private Entity commensalView;
-    private enum EntityType {
-        COMMENSAL
-    }
 
     public CommensalView(Commensal commensalModel){
         Texture commensalTexture = FXGL.getAssetLoader().loadTexture("commensal.png");
@@ -24,7 +21,6 @@ public class CommensalView{
         Component moveComponent = new MoveComponent();
 
             this.commensalView = FXGL.entityBuilder()
-                    .type(EntityType.COMMENSAL)
                     .at(commensalModel.getX(), commensalModel.getY())
                     .with(moveComponent)
                     .viewWithBBox(commensalTexture)

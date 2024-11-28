@@ -4,10 +4,8 @@ import models.MonitorTables;
 import models.Position;
 import models.Table;
 
-public class Recepcionist extends Thread implements Position {
+public class Recepcionist extends Position implements Runnable {
     private MonitorTables monitorTables;
-    private double x;
-    private double y;
 
     public Recepcionist(double x, double y, MonitorTables monitorTables){
         this.x = x;
@@ -26,15 +24,5 @@ public class Recepcionist extends Thread implements Position {
     @Override
     public void run() {
 
-    }
-
-    @Override
-    public double getX() {
-        return x;
-    }
-
-    @Override
-    public double getY() {
-        return y;
     }
 }

@@ -8,11 +8,8 @@ import models.Position;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Kitchener extends Thread implements Position, Observable {
+public class Kitchener extends Position implements Runnable {
 
-    private double x;
-    private double y;
-    private List<Observer> observers;
     private MonitorOrders monitorOrders;
 
     public Kitchener(double x, double y, MonitorOrders monitorOrders){
@@ -28,6 +25,15 @@ public class Kitchener extends Thread implements Position, Observable {
             int orderId = this.monitorOrders.getOrder();
 
             System.out.println("Cocinando la orden " + orderId);
+            try {
+                moveTo(900, 400, false);
+                Thread.sleep(1000);
+                moveTo(1000, 400, false);
+                Thread.sleep(1000);
+                moveTo(800, 630, false);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
 
             try {
                 Thread.sleep(5000);
@@ -37,32 +43,5 @@ public class Kitchener extends Thread implements Position, Observable {
 
             this.monitorOrders.setFood(orderId);
         }
-    }
-
-    @Override
-    public double getX() {
-        return x;
-    }
-
-    @Override
-    public double getY() {
-        return y;
-    }
-
-    @Override
-    public void addObserver(Observer observer) {
-        observers.add(observer);
-    }
-
-    @Override
-    public void removeObserver(Observer observer) {
-        observers.remove(observer);
-    }
-
-    @Override
-    public void notifyObservers() {
-        observers.forEach(observer -> {
-            observer.update(x, y);
-        });
     }
 }
