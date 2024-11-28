@@ -55,14 +55,18 @@ public class MonitorTables {
         return null;
     }
 
-    public void findTable(int tableId){
+    public Table findTable(int tableId){
         int i = 0;
 
         while(this.tables[i].getNumber() != tableId){
             i++;
         }
 
-        this.tables[i].setStatusCommensal(Commensal.STATUS.SERVE);
+        return this.tables[i];
+    }
+
+    public void serveCommensal(Table table){
+        table.getCommensal().setStatus(Commensal.STATUS.SERVE);
     }
 
 }

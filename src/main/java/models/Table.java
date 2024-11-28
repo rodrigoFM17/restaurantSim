@@ -43,6 +43,10 @@ public class Table extends Position {
         this.commensal = commensal;
     }
 
+    public Commensal getCommensal(){
+        return this.commensal;
+    }
+
     public void setStatusCommensal(Commensal.STATUS s){
         this.commensal.setStatus(s);
     }
