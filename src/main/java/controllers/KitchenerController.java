@@ -9,8 +9,8 @@ public class KitchenerController implements Observer {
     Kitchener kitchener;
     KitchenerView kitchenerView;
 
-    public void exec(MonitorOrders monitorOrders){
-        kitchener = new Kitchener(800, 630, monitorOrders);
+    public void exec(MonitorOrders monitorOrders, double x, double y){
+        kitchener = new Kitchener(x, y, monitorOrders);
         kitchenerView = new KitchenerView(kitchener);
         kitchener.addObserver(this);
         Thread kitchenerThread = new Thread(kitchener);
