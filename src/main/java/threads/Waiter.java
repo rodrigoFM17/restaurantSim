@@ -44,18 +44,14 @@ public class Waiter extends Position implements Runnable {
             Order order = this.monitorOrders.getFood();
 
             if(order !=  null){
-                System.out.println("Entregar comida");
                 // Movimiento a la mesa para entregar comida notifySuscribers();
                 // para hacer el movimiento necesito saber a que mesa debo dirigirme
                 Table table = this.monitorTables.findTable(order.getTableId());
-
-                //Me dirijo a la mesa
+                moveTo(table.getX(), table.getY(), true);
+                System.out.println("Entregando comida");
+                Thread.sleep(100);
 
                 this.monitorTables.serveCommensal(table);
-
-                //Ya serví
-
-
             }
 
         }

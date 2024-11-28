@@ -38,6 +38,7 @@ public class MonitorTables {
         this.countTables++;
 
         System.out.println(this.tables[table.getNumber()]);
+        notifyAll();
     }
 
     synchronized public Table attendTable() throws Exception {

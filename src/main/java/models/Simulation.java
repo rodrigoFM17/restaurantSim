@@ -67,15 +67,30 @@ public class Simulation extends Thread {
 
         Platform.runLater(() ->{
             WaiterController waiterController = new WaiterController();
-            waiterController.exec(monitorTable, monitorOrders);
+            waiterController.exec(monitorTable, monitorOrders, 700, 600);
+        });
+
+        Platform.runLater(() ->{
+            WaiterController waiterController = new WaiterController();
+            waiterController.exec(monitorTable, monitorOrders, 700, 500);
         });
 
         Platform.runLater(() ->{
             KitchenerController kitchenerController = new KitchenerController();
-            kitchenerController.exec(monitorOrders);
+            kitchenerController.exec(monitorOrders, 800, 600);
+        });
+        Platform.runLater(() ->{
+            KitchenerController kitchenerController = new KitchenerController();
+            kitchenerController.exec(monitorOrders, 800, 520);
+        });
+        Platform.runLater(() ->{
+            KitchenerController kitchenerController = new KitchenerController();
+            kitchenerController.exec(monitorOrders, 800, 440);
         });
 
-        while (true){
+        int i = 0;
+
+        while (i <20){
             System.out.println("nuevo comensal");
             Platform.runLater(()->{
                 CommensalController commensalController = new CommensalController();
@@ -87,6 +102,7 @@ public class Simulation extends Thread {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+            i++;
         }
 
 
