@@ -9,12 +9,15 @@ import javafx.application.Platform;
 import models.Observer;
 import threads.Commensal;
 
+import java.util.Random;
+
 public class CommensalView{
 
     private Entity commensalView;
 
     public CommensalView(Commensal commensalModel){
-        Texture commensalTexture = FXGL.getAssetLoader().loadTexture("commensal.png");
+        Random random = new Random();
+        Texture commensalTexture = FXGL.getAssetLoader().loadTexture("commensal" + (random.nextInt(5) + 1) + ".png");
         commensalTexture.setFitWidth(50);
         commensalTexture.setFitHeight(50);
 

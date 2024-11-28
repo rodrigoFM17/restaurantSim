@@ -11,10 +11,14 @@ import java.util.List;
 public class Kitchener extends Position implements Runnable {
 
     private MonitorOrders monitorOrders;
+    private double originX;
+    private double originY;
 
     public Kitchener(double x, double y, MonitorOrders monitorOrders){
         this.x = x;
         this.y = y;
+        this.originX = x;
+        this.originY = y;
         this.observers = new ArrayList<>();
         this.monitorOrders = monitorOrders;
     }
@@ -30,13 +34,7 @@ public class Kitchener extends Position implements Runnable {
                 Thread.sleep(1000);
                 moveTo(1000, 400, false);
                 Thread.sleep(1000);
-                moveTo(800, 630, false);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-
-            try {
-                Thread.sleep(5000);
+                moveTo(originX, originY, false);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
